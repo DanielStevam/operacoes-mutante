@@ -51,8 +51,10 @@ const {
   metade,
 } = require("../src/operacoes");
 
+// =======================================================
+// ===  BLOCO 1 A 5: 50 TESTES ORIGINAIS                ===
+// =======================================================
 describe("Suíte de Testes Fraca para 50 Operações Aritméticas", () => {
-  // === Testes para o Bloco 1 (1-10) ===
   test("1. deve somar dois números positivos", () => {
     expect(soma(2, 3)).toBe(5);
   });
@@ -85,7 +87,6 @@ describe("Suíte de Testes Fraca para 50 Operações Aritméticas", () => {
     expect(somaArray([1, 2, 3])).toBe(6);
   });
 
-  // === Testes para o Bloco 2 (11-20) ===
   test("11. deve encontrar o valor máximo em um array", () => {
     expect(maximoArray([1, 50, 10])).toBe(50);
   });
@@ -117,7 +118,6 @@ describe("Suíte de Testes Fraca para 50 Operações Aritméticas", () => {
     expect(inverterSinal(42)).toBe(-42);
   });
 
-  // === Testes para o Bloco 3 (21-30) ===
   test("21. deve calcular o seno de 0", () => {
     expect(seno(0)).toBe(0);
   });
@@ -149,7 +149,6 @@ describe("Suíte de Testes Fraca para 50 Operações Aritméticas", () => {
     expect(radianosParaGraus(Math.PI)).toBeCloseTo(180);
   });
 
-  // === Testes para o Bloco 4 (31-40) ===
   test("31. deve calcular o MDC de dois números", () => {
     expect(mdc(10, 5)).toBe(5);
   });
@@ -181,7 +180,6 @@ describe("Suíte de Testes Fraca para 50 Operações Aritméticas", () => {
     expect(inverso(4)).toBe(0.25);
   });
 
-  // === Testes para o Bloco 5 (41-50) ===
   test("41. deve calcular a área de um círculo", () => {
     expect(areaCirculo(10)).toBeCloseTo(314.159);
   });
@@ -214,10 +212,34 @@ describe("Suíte de Testes Fraca para 50 Operações Aritméticas", () => {
   });
 });
 
+// =======================================================
+// ===  TESTES ADICIONAIS E EXTRA COBERTURA             ===
+// =======================================================
 describe("Testes adicionais para validações e bordas de comparação", () => {
-  // ⚙️ Validações de tipo e comportamento real do código
   test("raizQuadrada deve lançar erro para número negativo", () => {
     expect(() => raizQuadrada(-9)).toThrow();
+  });
+
+  test("raizQuadrada deve retornar 0 para entrada igual a 0", () => {
+    expect(raizQuadrada(0)).toBe(0);
+  });
+
+  test("raizQuadrada deve lançar erro com mensagem correta para número negativo", () => {
+    expect(() => raizQuadrada(-1)).toThrow("número negativo");
+  });
+
+  test("fatorial deve lançar erro com mensagem 'Entrada inválida' para entrada não numérica", () => {
+    expect(() => fatorial("abc")).toThrow("Entrada inválida");
+  });
+
+  test("fatorial deve lançar erro com mensagem 'Fatorial não é definido para números negativos.' para número negativo", () => {
+    expect(() => fatorial(-5)).toThrow(
+      "Fatorial não é definido para números negativos."
+    );
+  });
+
+  test("fatorial deve retornar 1 para entrada igual a 1", () => {
+    expect(fatorial(1)).toBe(1);
   });
 
   test("fatorial deve lançar erro para número negativo", () => {
@@ -228,6 +250,26 @@ describe("Testes adicionais para validações e bordas de comparação", () => {
     expect(mediaArray([])).toBe(0);
   });
 
+  test("maximoArray deve lançar erro com mensagem correta para array vazio", () => {
+    expect(() => maximoArray([])).toThrow("Array vazio");
+  });
+
+  test("minimoArray deve lançar erro para entrada não array", () => {
+    expect(() => minimoArray(123)).toThrow();
+  });
+
+  test("produtoArray deve lançar erro para entrada não array", () => {
+    expect(() => produtoArray(5)).toThrow();
+  });
+
+  test("clamp deve retornar min quando valor é igual ao min", () => {
+    expect(clamp(0, 0, 10)).toBe(0);
+  });
+
+  test("clamp deve retornar max quando valor é igual ao max", () => {
+    expect(clamp(10, 0, 10)).toBe(10);
+  });
+
   test("maximoArray deve lançar erro para array vazio", () => {
     expect(() => maximoArray([])).toThrow("Array vazio");
   });
@@ -236,7 +278,6 @@ describe("Testes adicionais para validações e bordas de comparação", () => {
     expect(produtoArray([])).toBe(1);
   });
 
-  // ⚙️ Comparações e bordas
   test("isPar deve retornar falso para número ímpar negativo", () => {
     expect(isPar(-3)).toBe(false);
   });
@@ -261,9 +302,12 @@ describe("Testes adicionais para validações e bordas de comparação", () => {
     expect(isEqual(5, 6)).toBe(false);
   });
 
-  // ⚙️ Mediana e limites
   test("medianaArray deve calcular corretamente array par", () => {
     expect(medianaArray([1, 2, 3, 4])).toBe(2.5);
+  });
+
+  test("inverso deve lançar erro com mensagem correta para zero", () => {
+    expect(() => inverso(0)).toThrow("zero");
   });
 
   test("medianaArray deve calcular corretamente array não ordenado", () => {
@@ -274,11 +318,159 @@ describe("Testes adicionais para validações e bordas de comparação", () => {
     expect(clamp(0, 0, 10)).toBe(0);
   });
 
+  test("medianaArray deve lançar erro com mensagem correta para array vazio", () => {
+    expect(() => medianaArray([])).toThrow("Array vazio");
+  });
+
+  // test("mediaArray deve retornar 0 para entrada não array", () => {
+  //   expect(mediaArray(10)).toBe(0);
+  // });
+
+  test("fatorial deve calcular corretamente para número > 1", () => {
+    expect(fatorial(5)).toBe(120);
+  });
+
+  test("mediaArray deve calcular corretamente média de um array válido", () => {
+    expect(mediaArray([2, 4, 6])).toBe(4);
+  });
+
+  test("mediaArray deve lançar erro com mensagem 'Entrada inválida.' para tipo inválido", () => {
+    expect(() => mediaArray(123)).toThrow("Entrada inválida.");
+  });
+
+  test("produtoArray deve retornar 1 quando array estiver vazio", () => {
+    expect(produtoArray([])).toBe(1);
+  });
+
+  test("clamp deve retornar min quando valor < min", () => {
+    expect(clamp(-5, 0, 10)).toBe(0);
+  });
+
+  test("clamp deve retornar max quando valor > max", () => {
+    expect(clamp(15, 0, 10)).toBe(10);
+  });
+
+  test("clamp deve retornar valor original quando dentro do intervalo", () => {
+    expect(clamp(5, 0, 10)).toBe(5);
+  });
+
+  test("mediaArray deve lançar erro para entrada não array", () => {
+    expect(() => mediaArray("x")).toThrow("Entrada inválida");
+  });
+
+  test("produtoArray deve retornar 1 para array vazio", () => {
+    expect(produtoArray([])).toBe(1);
+  });
+
   test("clamp deve retornar max corretamente quando valor = max", () => {
     expect(clamp(10, 0, 10)).toBe(10);
   });
 
   test("isPrimo deve retornar falso para números compostos", () => {
     expect(isPrimo(9)).toBe(false);
+  });
+});
+
+// =======================================================
+// ===  TESTES EXTRAS PARA MATAR MUTANTES SOBREVIVENTES ===
+// =======================================================
+describe("Testes extras para cobrir mutações sobreviventes", () => {
+  test("raizQuadrada deve lançar erro para entrada não numérica", () => {
+    expect(() => raizQuadrada("a")).toThrow();
+  });
+
+  test("fatorial deve retornar 1 para entrada 0", () => {
+    expect(fatorial(0)).toBe(1);
+  });
+
+  test("fatorial deve retornar 1 para entrada 1", () => {
+    expect(fatorial(1)).toBe(1);
+  });
+
+  test("isPrimo deve retornar falso para 0 e 1", () => {
+    expect(isPrimo(0)).toBe(false);
+    expect(isPrimo(1)).toBe(false);
+  });
+
+  test("clamp deve retornar valor mínimo quando igual ao limite inferior", () => {
+    expect(clamp(5, 5, 10)).toBe(5);
+  });
+
+  test("clamp deve retornar valor máximo quando igual ao limite superior", () => {
+    expect(clamp(10, 0, 10)).toBe(10);
+  });
+  test("celsiusParaFahrenheit e fahrenheitParaCelsius devem ser inversos", () => {
+    const c = 25;
+    const f = celsiusParaFahrenheit(c);
+    expect(fahrenheitParaCelsius(f)).toBeCloseTo(c);
+  });
+
+  test("inverso deve lançar erro para 0", () => {
+    expect(() => inverso(0)).toThrow();
+  });
+
+  test("medianaArray deve lançar erro para array vazio", () => {
+    expect(() => medianaArray([])).toThrow();
+  });
+
+  test("mediaArray deve lançar erro com mensagem 'Entrada inválida' para entrada não array", () => {
+    expect(() => mediaArray(10)).toThrow("Entrada inválida");
+  });
+
+  // ======== TESTES PARA COBRIR MUTANTES RESTANTES ========
+
+  // raizQuadrada - verificar mensagem de erro completa
+  test("raizQuadrada deve lançar erro com mensagem contendo 'Entrada inválida' para entrada não numérica", () => {
+    expect(() => raizQuadrada("a")).toThrow("Entrada inválida");
+  });
+
+  // fatorial - garantir retorno correto para 0 e 1
+  test("fatorial deve retornar 1 para entrada igual a 0", () => {
+    expect(fatorial(0)).toBe(1);
+  });
+  test("fatorial deve retornar 1 para entrada igual a 1", () => {
+    expect(fatorial(1)).toBe(1);
+  });
+
+  // minimoArray - testar array vazio e não-array
+  test("minimoArray deve lançar erro com mensagem 'Array vazio' para array vazio", () => {
+    expect(() => minimoArray([])).toThrow("Array vazio");
+  });
+  test("minimoArray deve lançar erro com mensagem 'Entrada inválida' para tipo inválido", () => {
+    expect(() => minimoArray(123)).toThrow("Entrada inválida");
+  });
+
+  // produtoArray - testar comportamento para array vazio e tipo inválido
+  test("produtoArray deve lançar erro para entrada não array", () => {
+    expect(() => produtoArray("x")).toThrow("Entrada inválida");
+  });
+  test("produtoArray deve retornar 1 para array vazio", () => {
+    expect(produtoArray([])).toBe(1);
+  });
+
+  // clamp - testar igualdade de min e max explicitamente
+  test("clamp deve retornar valor mínimo corretamente quando igual ao min", () => {
+    expect(clamp(0, 0, 10)).toBe(0);
+  });
+  test("clamp deve retornar valor máximo corretamente quando igual ao max", () => {
+    expect(clamp(10, 0, 10)).toBe(10);
+  });
+});
+
+describe("Cobertura final de mutações residuais", () => {
+  test("fatorial deve retornar 1 para entrada 0", () => {
+    expect(fatorial(0)).toBe(1);
+  });
+  test("fatorial deve retornar 1 para entrada 1", () => {
+    expect(fatorial(1)).toBe(1);
+  });
+  test("mediaArray deve lançar erro para entrada não array", () => {
+    expect(() => mediaArray(123)).toThrow("Entrada inválida.");
+  });
+  test("produtoArray deve retornar 1 para array vazio", () => {
+    expect(produtoArray([])).toBe(1);
+  });
+  test("clamp deve retornar valor original quando entre min e max", () => {
+    expect(clamp(5, 0, 10)).toBe(5);
   });
 });

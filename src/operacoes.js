@@ -39,7 +39,8 @@ function fatorial(n) {
 }
 
 function mediaArray(numeros) {
-  if (!Array.isArray(numeros) || numeros.length === 0) return 0;
+  if (!Array.isArray(numeros)) throw new Error("Entrada inválida.");
+  if (numeros.length === 0) return 0;
   return somaArray(numeros) / numeros.length;
 }
 
@@ -56,7 +57,8 @@ function maximoArray(numeros) {
 }
 
 function minimoArray(numeros) {
-  if (!Array.isArray(numeros) || numeros.length === 0)
+  if (!Array.isArray(numeros)) throw new Error("Entrada inválida.");
+  if (numeros.length === 0)
     throw new Error("Array vazio não possui valor mínimo.");
   return Math.min(...numeros);
 }
